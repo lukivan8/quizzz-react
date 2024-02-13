@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+}
+
+.center_card_layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f0f0f0;
+}
+
+.center_card_layout > div {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.question_title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+.question-transition {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.question-transition.hide {
+  opacity: 0;
+}
