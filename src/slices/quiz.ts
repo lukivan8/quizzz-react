@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface QuizState {
-  selectedAnswers: (1 | 2 | 3 | 4)[];
+  selectedAnswers: string[];
   progress: number;
 }
 
 const initialState: QuizState = {
   selectedAnswers: [],
-  progress: 0,
+  progress: -1,
 };
 
 export const quizSlice = createSlice({
   name: "quizSlice",
   initialState,
   reducers: {
-    addAnswer: (state, action: PayloadAction<1 | 2 | 3 | 4>) => {
+    addAnswer: (state, action: PayloadAction<string>) => {
       state.selectedAnswers[state.progress] = action.payload;
     },
     nextQuestion: (state) => {

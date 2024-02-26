@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface QuestionState {
-  selectedAnswer: 1 | 2 | 3 | 4 | undefined;
+  selectedAnswer: string | undefined;
 }
 
 const initialState: QuestionState = {
@@ -12,7 +12,7 @@ export const questionSlice = createSlice({
   name: "questionSlice",
   initialState,
   reducers: {
-    selectAnswer: (state, action: PayloadAction<1 | 2 | 3 | 4 | undefined>) => {
+    selectAnswer: (state, action: PayloadAction<string | undefined>) => {
       state.selectedAnswer = action.payload;
     },
   },

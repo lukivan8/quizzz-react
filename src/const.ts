@@ -1,105 +1,80 @@
-interface Question {
+export interface QuestionT {
   question: string;
-  answers: string[];
-  correctAnswer: number;
+  incorrect_answer: string[];
+  correct_answer: string;
 }
 
-export const questionList: Question[] = [
+export const questionList: QuestionT[] = [
   {
     question: "What is the correct command to create a new React project?",
-    answers: [
-      "A. npm create-react-app",
-      "B. npm create-react-app myReactApp",
-      "C. npx create-react-app",
-      "D. npx create-react-app",
+    incorrect_answer: [
+      "npm create-react-app",
+      "npm create-react-app myReactApp",
+      "npx create-react-app",
     ],
-    correctAnswer: 3,
-  },
-  {
-    question: "How do you import a component in React?",
-    answers: [
-      "A. import MyComponent from './MyComponent'",
-      "B. import { MyComponent } from './MyComponent'",
-      "C. import MyComponent from 'MyComponent'",
-      "D. import { MyComponent } from 'MyComponent'",
-    ],
-    correctAnswer: 2,
-  },
-  {
-    question: "What is the correct syntax for a function component in React?",
-    answers: [
-      "A. function MyComponent() {}",
-      "B. class MyComponent extends React.Component {}",
-      "C. const MyComponent = () => {}",
-      "D. const MyComponent = function() {}",
-    ],
-    correctAnswer: 3,
-  },
-  {
-    question: "What hook is used to manage state in a functional component?",
-    answers: ["A. useState", "B. useEffect", "C. useContext", "D. useReducer"],
-    correctAnswer: 1,
-  },
-  {
-    question: "What is the purpose of the useEffect hook in React?",
-    answers: [
-      "A. To fetch data from an API",
-      "B. To update the component's state",
-      "C. To perform side effects",
-      "D. To render JSX elements",
-    ],
-    correctAnswer: 3,
+    correct_answer: "npx create-react-app myReactApp",
   },
   {
     question:
-      "What is the correct way to pass data from a parent component to a child component in React?",
-    answers: [
-      "A. Using props",
-      "B. Using state",
-      "C. Using context",
-      "D. Using refs",
+      "What does myReactApp refer to in the following command?\n<i>npx create-react-app myReactApp</i>",
+    incorrect_answer: [
+      "A reference to an existing app",
+      "The type of app to create",
+      "The directory to create the new app in",
     ],
-    correctAnswer: 1,
-  },
-  {
-    question: "What is the purpose of the useCallback hook in React?",
-    answers: [
-      "A. To memoize a function",
-      "B. To handle form input",
-      "C. To fetch data from an API",
-      "D. To update the component's state",
-    ],
-    correctAnswer: 1,
+    correct_answer: "The name you want to use for the new app",
   },
   {
     question:
-      "What is the correct way to conditionally render content in React?",
-    answers: [
-      "A. Using if-else statements",
-      "B. Using switch statements",
-      "C. Using ternary operators",
-      "D. Using for loops",
-    ],
-    correctAnswer: 3,
+      "What command is used to start the React local development server (CRA)?",
+    incorrect_answer: ["npm run dev", "npm build", "npm start-react"],
+    correct_answer: "npm start",
   },
   {
-    question: "What is the purpose of the useRef hook in React?",
-    answers: [
-      "A. To store a mutable value",
-      "B. To fetch data from an API",
-      "C. To update the component's state",
-      "D. To handle form input",
-    ],
-    correctAnswer: 1,
+    question:
+      "What is the default local host port that a React development server uses?",
+    incorrect_answer: ["5000", "8080", "80"],
+    correct_answer: "3000",
   },
   {
-    question: "What is the correct way to handle form input in React?",
-    answers: [
-      "A. Using the onChange event",
-      "B. Using the onSubmit event",
-      "C. Using the onClick event",
-      "D. Using the onInput event",
+    question: "What is the children prop?",
+    incorrect_answer: [
+      "A property that lets you set an object as a property",
+      "A property that adds child values to state",
+      "A property that lets you pass data to child components",
     ],
-    correctAnswer: 1,
+    correct_answer:
+      "A property that lets you nest components in other components",
+  },
+  {
+    question: "Which keyword creates a constant in JavaScript?",
+    incorrect_answer: ["let", "constant", "var"],
+    correct_answer: "const",
+  },
+  {
+    question: "What is the purpose of the useEffect hook?",
+    incorrect_answer: [
+      "To run code when a component is first rendered",
+      "To run code when a component is updated",
+      "To run code when a component is unmounted",
+    ],
+    correct_answer: "All of the above",
+  },
+  {
+    question: "A copy of the 'real' DOM that is kept in memory is called what?",
+    incorrect_answer: ["Shadow DOM", "DOM", "Fake DOM"],
+    correct_answer: "Virtual DOM",
+  },
+  {
+    question:
+      "Which operator can be used to conditionally render a React component?",
+    incorrect_answer: ["::", "??", "||"],
+    correct_answer: "&&",
+  },
+  {
+    question:
+      "When rendering a list using the JavaScript map() method, what is required for each element rendered?",
+    incorrect_answer: ["data", "id", "index"],
+    correct_answer: "key",
   },
 ];

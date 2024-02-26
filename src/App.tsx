@@ -3,11 +3,50 @@ import { RootState } from "./store";
 import { Button, Card, Flex, Progress } from "antd";
 import { ArrowLeftOutlined, RightOutlined } from "@ant-design/icons";
 import { selectAnswer } from "./slices/question";
-import React from "react";
+import React, { useMemo } from "react";
 import { addAnswer, nextQuestion, restartTest } from "./slices/quiz";
-import { questionList } from "./const";
+import { QuestionT, questionList } from "./const";
 
 function App() {
+  const quiz = useSelector((state: RootState) => state.quiz);
+  if (quiz.progress === -1) {
+    return (
+      <>
+        <StartPage />
+      </>
+    );
+  }
+  return <Quizz questions={questionList} />;
+}
+
+function StartPage() {
+  const dispatch = useDispatch();
+  return (
+    <div className="center_card_layout">
+      <Card style={{ width: "600px" }}>
+        <h1 className="question_title">Welcome to the React Quiz!</h1>
+        <p style={{ fontSize: "1.3rem" }}>
+          This quiz will test your knowledge of React.
+        </p>
+        <Button
+          icon={<RightOutlined />}
+          style={{
+            marginTop: "12px",
+          }}
+          type="primary"
+          size="large"
+          onClick={() => {
+            dispatch(nextQuestion());
+          }}
+        >
+          Start the Quiz
+        </Button>
+      </Card>
+    </div>
+  );
+}
+
+function Quizz({ questions }: { questions: QuestionT[] }) {
   const handleNextButtonClick = () => {
     const newProgress = quiz.progress + 1;
     if (newProgress <= 10) {
@@ -19,9 +58,9 @@ function App() {
 
   const calculateScore = () => {
     let score = 0;
-    for (let i = 0; i < questionList.length; i++) {
-      console.log(questionList[i].correctAnswer, quiz.selectedAnswers[i]);
-      if (questionList[i].correctAnswer === quiz.selectedAnswers[i]) {
+    for (let i = 0; i < questions.length; i++) {
+      console.log(questions[i].correct_answer, quiz.selectedAnswers[i]);
+      if (questions[i].correct_answer === quiz.selectedAnswers[i]) {
         score++;
       }
     }
@@ -39,7 +78,7 @@ function App() {
           <div style={{ textAlign: "center" }}>
             <h1 className="question_title">You have completed the quiz!</h1>
             <p style={{ fontSize: "1.3rem" }}>
-              You've got {calculateScore()} out of 10 right.
+              You've got {calculateScore()} out of {questions.length} right.
             </p>
             <CustomMessage score={calculateScore()} />
             <Button
@@ -59,8 +98,11 @@ function App() {
         ) : (
           <React.Fragment>
             <Question
-              question={questionList[quiz.progress].question}
-              answers={questionList[quiz.progress].answers}
+              question={questions[quiz.progress].question}
+              answers={[
+                ...questions[quiz.progress].incorrect_answer,
+                questions[quiz.progress].correct_answer,
+              ]}
             />
             <Button
               icon={<RightOutlined />}
@@ -88,38 +130,36 @@ function Question({
   question: string;
   answers: string[];
 }) {
+  const shuffledAnswers = useMemo(
+    () => answers.sort(() => Math.random() - 0.5),
+    [question]
+  );
   return (
     <div>
       <h1 className="question_title">{question}</h1>
 
       <Flex vertical gap={6}>
-        <AnswerButton value={1} label={answers[0]} />
-        <AnswerButton value={2} label={answers[1]} />
-        <AnswerButton value={3} label={answers[2]} />
-        <AnswerButton value={4} label={answers[3]} />
+        <AnswerButton answer={shuffledAnswers[0]} />
+        <AnswerButton answer={shuffledAnswers[1]} />
+        <AnswerButton answer={shuffledAnswers[2]} />
+        <AnswerButton answer={shuffledAnswers[3]} />
       </Flex>
     </div>
   );
 }
-function AnswerButton({
-  value,
-  label,
-}: {
-  value: 1 | 2 | 3 | 4;
-  label: string;
-}) {
+function AnswerButton({ answer }: { answer: string }) {
   const dispatch = useDispatch();
   const question = useSelector((state: RootState) => state.question);
 
   return (
     <Button
       onClick={() => {
-        dispatch(selectAnswer(value));
+        dispatch(selectAnswer(answer));
       }}
-      type={question.selectedAnswer === value ? "primary" : "default"}
+      type={question.selectedAnswer === answer ? "primary" : "default"}
       style={{ textAlign: "left" }}
     >
-      {label}
+      {answer}
     </Button>
   );
 }
